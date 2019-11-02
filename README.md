@@ -1,8 +1,8 @@
 ﻿# Elastic Stack Enterprise Scripts
-## Passo a Passo - Montagem de infra Elastic Stack para Prova de Conceito
+## Passo a Passo - Montagem de infra Elastic Stack
 
 ## Pré Requisitos
-Para realização de POCs é necessário os seguintes serviços instalados:
+Para Montagem da infra é necessário os seguintes serviços instalados:
 
 - CentOS 7/Redhat 7
 - Repositório EPEL
@@ -11,7 +11,7 @@ Para realização de POCs é necessário os seguintes serviços instalados:
 
 ## Passo 1 - Instalando reposritório EPEL e dependências
 ```
-# yum install epel-release
+# yum install epel-release -y
 # yum install -y yum-utils device-mapper-persistent-data lvm2 git 
 ```
 ## Passo 2 - Instalando o repositorio do Docker CE e instalando o Docker CE
@@ -32,6 +32,7 @@ Para realização de POCs é necessário os seguintes serviços instalados:
 # firewall-cmd --zone=public --permanent --add-port=5601/tcp
 # firewall-cmd --zone=public --permanent --add-port=9600/tcp
 # firewall-cmd --zone=public --permanent --add-port=5044/tcp
+# firewall-cmd --reload
 ```
 ## Passo 5 - Clonando os scripts Elastic Stack do git da BKTECH
 ```
