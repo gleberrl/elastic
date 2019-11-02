@@ -4,10 +4,10 @@
 ## Pré Requisitos
 Para realização de POCs é necessário os seguintes serviços instalados:
 
-CentOS 7/Redhat 7
-Repositório EPEL
-Docker CE 1.8 ou superior
-docker-compose
+- CentOS 7/Redhat 7
+- Repositório EPEL
+- Docker CE 1.8 ou superior
+- Docker-compose
 
 ## Passo 1 - Instalando reposritório EPEL e dependências
 ```
@@ -36,7 +36,7 @@ docker-compose
 ## Passo 5 - Clonando os scripts Elastic Stack do git da BKTECH
 ```
 # cd /opt/ 
-# git clone https://github.com/BktechBrazil/elastic-scripts.git
+# git clone https://github.com/gleberrl/elastic.git
 ```
 ## Passo 6 - Subindo as instancias de Elasticsearch, Kibana e Logstash com docker-compose
 **OBS:** Após realizado o clone do repositório você perceberá que dentro da pasta elastic possui o arquivo do docker-compose.yml e arquivos de configuração da da pilha.
