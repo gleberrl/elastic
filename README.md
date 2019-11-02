@@ -1,7 +1,7 @@
-﻿#Elastic Stack Enterprise Scripts
+﻿# Elastic Stack Enterprise Scripts
 ## Passo a Passo - Montagem de infra Elastic Stack para Prova de Conceito
 
-##Pré Requisitos
+## Pré Requisitos
 Para realização de POCs é necessário os seguintes serviços instalados:
 
 CentOS 7/Redhat 7
@@ -9,36 +9,36 @@ Repositório EPEL
 Docker CE 1.8 ou superior
 docker-compose
 
-##Passo 1 - Instalando reposritório EPEL e dependências
+## Passo 1 - Instalando reposritório EPEL e dependências
 ```
 # yum install epel-release
 # yum install -y yum-utils device-mapper-persistent-data lvm2 git 
 ```
-##Passo 2 - Instalando o repositorio do Docker CE e instalando o Docker CE
+## Passo 2 - Instalando o repositorio do Docker CE e instalando o Docker CE
 ```
 # yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 # yum install docker-ce python-pip -y
 # systemctl enable docker.service
 # systemctl start docker.service
 ```
-##Passo 3 - Instalando o docker-compose
+## Passo 3 - Instalando o docker-compose
 ```
 # pip install docker-compose
 # docker-compose version
 ```
-##Passo 4 - Liberando portas do Elasticsearch, Logstash e Kibana no FirewallD (CentOS/RHCE7)
+## Passo 4 - Liberando portas do Elasticsearch, Logstash e Kibana no FirewallD (CentOS/RHCE7)
 ```
 # firewall-cmd --zone=public --permanent --add-port=9200/tcp
 # firewall-cmd --zone=public --permanent --add-port=5601/tcp
 # firewall-cmd --zone=public --permanent --add-port=9600/tcp
 # firewall-cmd --zone=public --permanent --add-port=5044/tcp
 ```
-##Passo 5 - Clonando os scripts Elastic Stack do git da BKTECH
+## Passo 5 - Clonando os scripts Elastic Stack do git da BKTECH
 ```
 # cd /opt/ 
 # git clone https://github.com/BktechBrazil/elastic-scripts.git
 ```
-##Passo 6 - Subindo as instancias de Elasticsearch, Kibana e Logstash com docker-compose
+## Passo 6 - Subindo as instancias de Elasticsearch, Kibana e Logstash com docker-compose
 **OBS:** Após realizado o clone do repositório você perceberá que dentro da pasta elastic possui o arquivo do docker-compose.yml e arquivos de configuração da da pilha.
 
 Ajustando a VM do SO:
@@ -68,13 +68,13 @@ CONTAINER ID        IMAGE                                                 COMMAN
 ```
 Abra um navegador e tente acessar o Elasticsearch usando a url:
 
-###http://<IP_DO_HOST>:9200/
+### http://<IP_DO_HOST>:9200/
 
 Se pedir login e senha use: elastic/123456 a senha esta definida no aquivo docker-compose.yml
 
 OBS: Caso o passo 5 não tenha sido concluído com sucesso, repetir os passos anteriores.
 
-##Passo 7 - Definindo senhas para os serviços da Stack(Kibana, Elasticsearch, Beats, Logstash e APM Server)
+## Passo 7 - Definindo senhas para os serviços da Stack(Kibana, Elasticsearch, Beats, Logstash e APM Server)
 ```
 # ./start.sh
 ```
@@ -163,6 +163,6 @@ Criando pipeline main para o Logstash... OK!
 ```
 Acesse o kibana via navegador
 
-###http://<IP_DO_HOST>:5601
+### http://<IP_DO_HOST>:5601
 
 Se pedir login e senha use: elastic/123456 a senha esta definida no aquivo docker-compose.yml
