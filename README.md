@@ -9,22 +9,35 @@ Para Montagem da infra é necessário os seguintes serviços instalados:
 - Docker CE 1.8 ou superior
 - Docker-compose
 
-## Passo 1 - Instalando reposritório EPEL e dependências
+## Passo 1 - Preparando o SO instalando repositório EPEL e dependências
+```
+# yum upgrade -y
+# vi /etc/sysconfig/selinux
+SELINUX=disabled
+# vi /etc/sysctl.conf
+vm.max_map_count=262144
+# reboot
+```
+ou
+```
+# sysctl -w vm.max_map_count=262144
+# setenforce 0
+```
 ```
 # yum install epel-release -y
-# yum install -y yum-utils device-mapper-persistent-data lvm2 git 
+# yum install -y yum-utils device-mapper-persistent-data lvm2 git vim htop net-tools lsof 
 ```
 ## Passo 2 - Instalando o repositorio do Docker CE e instalando o Docker CE
 ```
 # yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 # yum install docker-ce python-pip -y
+# pip install --upgrade pip
 # systemctl enable docker.service
 # systemctl start docker.service
 ```
 ## Passo 3 - Instalando o docker-compose
 ```
 # pip install docker-compose
-# docker-compose version
 ```
 ## Passo 4 - Liberando portas do Elasticsearch, Logstash e Kibana no FirewallD (CentOS/RHCE7)
 ```
@@ -40,13 +53,8 @@ Para Montagem da infra é necessário os seguintes serviços instalados:
 # git clone https://github.com/gleberrl/elastic.git
 ```
 ## Passo 6 - Subindo as instancias de Elasticsearch, Kibana e Logstash com docker-compose
-**OBS:** Após realizado o clone do repositório você perceberá que dentro da pasta elastic possui o arquivo do docker-compose.yml e arquivos de configuração da da pilha.
+**OBS:** Após realizado o clone do repositório você perceberá que dentro da pasta elastic possui o arquivo do docker-compose.yml e arquivos de configuração da pilha.
 
-Ajustando a VM do SO:
-```
-# sysctl -w vm.max_map_count=262144
-# vi /etc/sysctl.conf
-vm.max_map_count=262144
 ```
 Subindo o docker-compose.
 ```
@@ -67,15 +75,34 @@ CONTAINER ID        IMAGE                                                 COMMAN
 72ef5976c3be        docker.elastic.co/elasticsearch/elasticsearch:7.4.2   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       9200/tcp, 9300/tcp                               es02
 675512fc627b        docker.elastic.co/elasticsearch/elasticsearch:7.4.2   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       0.0.0.0:9200->9200/tcp, 9300/tcp                 es01
 ```
-Abra um navegador e tente acessar o Elasticsearch usando a url:
-
-### http://<IP_DO_HOST>:9200/
-
-Se pedir login e senha use: elastic/123456 a senha esta definida no aquivo docker-compose.yml
-
+Aguarde em torno de 2 minutos até que o elasticsearch esteja no ar e obtenha o retorno abaixo para o comando:
+```
+# curl -XGET http://localhost:9200 -u elastic:123456
+```
+```
+{
+  "name" : "es01",
+  "cluster_name" : "elastic-docker",
+  "cluster_uuid" : "Lygb8XmFSnmB4oqFBAJXww",
+  "version" : {
+    "number" : "7.4.2",
+    "build_flavor" : "default",
+    "build_type" : "docker",
+    "build_hash" : "2f90bbf7b93631e52bafb59b3b049cb44ec25e96",
+    "build_date" : "2019-10-28T20:40:44.881551Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.2.0",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
 OBS: Caso o passo 5 não tenha sido concluído com sucesso, repetir os passos anteriores.
 
 ## Passo 7 - Definindo senhas para os serviços da Stack(Kibana, Elasticsearch, Beats, Logstash e APM Server)
+
+Digite o comando abaixo para cadastrar as senhas do keystore e iniciar o pipeline do logstash.
 ```
 # ./start.sh
 ```
