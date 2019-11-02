@@ -47,7 +47,7 @@ ou
 # firewall-cmd --zone=public --permanent --add-port=5044/tcp
 # firewall-cmd --reload
 ```
-## Passo 5 - Clonando os scripts Elastic Stack do git da BKTECH
+## Passo 5 - Clonando os scripts Elastic Stack
 ```
 # cd /opt/ 
 # git clone https://github.com/gleberrl/elastic.git
@@ -55,7 +55,6 @@ ou
 ## Passo 6 - Subindo as instancias de Elasticsearch, Kibana e Logstash com docker-compose
 **OBS:** Após realizado o clone do repositório você perceberá que dentro da pasta elastic possui o arquivo do docker-compose.yml e arquivos de configuração da pilha.
 
-```
 Subindo o docker-compose.
 ```
 # cd elatic
