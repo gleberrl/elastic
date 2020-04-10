@@ -52,6 +52,7 @@ Se RedHat7
 ## Passo 4 - Liberando portas do Elasticsearch, Logstash e Kibana no FirewallD (CentOS/RHCE7)
 ```
 # firewall-cmd --zone=public --permanent --add-port=9200/tcp
+# firewall-cmd --zone=public --permanent --add-port=8200/tcp
 # firewall-cmd --zone=public --permanent --add-port=5601/tcp
 # firewall-cmd --zone=public --permanent --add-port=9600/tcp
 # firewall-cmd --zone=public --permanent --add-port=5044/tcp
@@ -77,12 +78,12 @@ Verificado se o container subiu e se as portas estão operacional
 Abaixo o resultado esperado de exemplo:
 ```
 CONTAINER ID        IMAGE                                                 COMMAND                  CREATED             STATUS              PORTS                                            NAMES
-4179a0588b63        docker.elastic.co/apm/apm-server:7.6.1                "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       0.0.0.0:8200->8200/tcp                           apm-server
-7985514745c7        docker.elastic.co/kibana/kibana:7.6.1                 "/usr/local/bin/dumb…"   14 minutes ago      Up 14 minutes       0.0.0.0:5601->5601/tcp                           kb01
-83707824ecab        docker.elastic.co/logstash/logstash:7.6.1             "/usr/local/bin/dock…"   14 minutes ago      Up 11 minutes       0.0.0.0:5044->5044/tcp, 0.0.0.0:9600->9600/tcp   ls01
-0f3d8d2d07af        docker.elastic.co/elasticsearch/elasticsearch:7.6.1   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       9200/tcp, 9300/tcp                               es03
-72ef5976c3be        docker.elastic.co/elasticsearch/elasticsearch:7.6.1   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       9200/tcp, 9300/tcp                               es02
-675512fc627b        docker.elastic.co/elasticsearch/elasticsearch:7.6.1   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       0.0.0.0:9200->9200/tcp, 9300/tcp                 es01
+4179a0588b63        docker.elastic.co/apm/apm-server:7.6.2                "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       0.0.0.0:8200->8200/tcp                           apm-server
+7985514745c7        docker.elastic.co/kibana/kibana:7.6.2                 "/usr/local/bin/dumb…"   14 minutes ago      Up 14 minutes       0.0.0.0:5601->5601/tcp                           kb01
+83707824ecab        docker.elastic.co/logstash/logstash:7.6.2             "/usr/local/bin/dock…"   14 minutes ago      Up 11 minutes       0.0.0.0:5044->5044/tcp, 0.0.0.0:9600->9600/tcp   ls01
+0f3d8d2d07af        docker.elastic.co/elasticsearch/elasticsearch:7.6.2   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       9200/tcp, 9300/tcp                               es03
+72ef5976c3be        docker.elastic.co/elasticsearch/elasticsearch:7.6.2   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       9200/tcp, 9300/tcp                               es02
+675512fc627b        docker.elastic.co/elasticsearch/elasticsearch:7.6.2   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       0.0.0.0:9200->9200/tcp, 9300/tcp                 es01
 ```
 Aguarde em torno de 2 minutos até que o elasticsearch esteja no ar e obtenha o retorno abaixo para o comando:
 ```
@@ -94,7 +95,7 @@ Aguarde em torno de 2 minutos até que o elasticsearch esteja no ar e obtenha o 
   "cluster_name" : "elastic-docker",
   "cluster_uuid" : "Lygb8XmFSnmB4oqFBAJXww",
   "version" : {
-    "number" : "7.4.2",
+    "number" : "7.6.2",
     "build_flavor" : "default",
     "build_type" : "docker",
     "build_hash" : "2f90bbf7b93631e52bafb59b3b049cb44ec25e96",
