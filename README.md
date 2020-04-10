@@ -23,9 +23,19 @@ ou
 # sysctl -w vm.max_map_count=262144
 # setenforce 0
 ```
+Se Centos 7
 ```
 # yum install epel-release -y
 # yum install -y yum-utils device-mapper-persistent-data lvm2 git vim htop net-tools lsof 
+```
+Se RedHat7
+```
+# yum install python-devel openldap-devel
+# yum groupinstall "Development tools"
+# yum-config-manager --enable rhel-7-server-extras-rpms
+# yum install -y yum-utils device-mapper-persistent-data lvm2 git vim htop net-tools lsof
+# yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+# yum repolist
 ```
 ## Passo 2 - Instalando o repositorio do Docker CE e instalando o Docker CE
 ```
@@ -67,12 +77,12 @@ Verificado se o container subiu e se as portas estão operacional
 Abaixo o resultado esperado de exemplo:
 ```
 CONTAINER ID        IMAGE                                                 COMMAND                  CREATED             STATUS              PORTS                                            NAMES
-4179a0588b63        docker.elastic.co/apm/apm-server:7.4.2                "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       0.0.0.0:8200->8200/tcp                           apm-server
-7985514745c7        docker.elastic.co/kibana/kibana:7.4.2                 "/usr/local/bin/dumb…"   14 minutes ago      Up 14 minutes       0.0.0.0:5601->5601/tcp                           kb01
-83707824ecab        docker.elastic.co/logstash/logstash:7.4.2             "/usr/local/bin/dock…"   14 minutes ago      Up 11 minutes       0.0.0.0:5044->5044/tcp, 0.0.0.0:9600->9600/tcp   ls01
-0f3d8d2d07af        docker.elastic.co/elasticsearch/elasticsearch:7.4.2   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       9200/tcp, 9300/tcp                               es03
-72ef5976c3be        docker.elastic.co/elasticsearch/elasticsearch:7.4.2   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       9200/tcp, 9300/tcp                               es02
-675512fc627b        docker.elastic.co/elasticsearch/elasticsearch:7.4.2   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       0.0.0.0:9200->9200/tcp, 9300/tcp                 es01
+4179a0588b63        docker.elastic.co/apm/apm-server:7.6.1                "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       0.0.0.0:8200->8200/tcp                           apm-server
+7985514745c7        docker.elastic.co/kibana/kibana:7.6.1                 "/usr/local/bin/dumb…"   14 minutes ago      Up 14 minutes       0.0.0.0:5601->5601/tcp                           kb01
+83707824ecab        docker.elastic.co/logstash/logstash:7.6.1             "/usr/local/bin/dock…"   14 minutes ago      Up 11 minutes       0.0.0.0:5044->5044/tcp, 0.0.0.0:9600->9600/tcp   ls01
+0f3d8d2d07af        docker.elastic.co/elasticsearch/elasticsearch:7.6.1   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       9200/tcp, 9300/tcp                               es03
+72ef5976c3be        docker.elastic.co/elasticsearch/elasticsearch:7.6.1   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       9200/tcp, 9300/tcp                               es02
+675512fc627b        docker.elastic.co/elasticsearch/elasticsearch:7.6.1   "/usr/local/bin/dock…"   14 minutes ago      Up 14 minutes       0.0.0.0:9200->9200/tcp, 9300/tcp                 es01
 ```
 Aguarde em torno de 2 minutos até que o elasticsearch esteja no ar e obtenha o retorno abaixo para o comando:
 ```

@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
     container_name: es01
     restart: always
     environment:
@@ -9,7 +9,7 @@ services:
       - cluster.initial_master_nodes=es01
       - cluster.name=elastic-docker
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - ELASTIC_PASSWORD=123456
       - xpack.license.self_generated.type=trial
       - xpack.security.enabled=true
@@ -23,13 +23,14 @@ services:
       - ./backup:/usr/share/elasticsearch/backup
       - ./elasticsearch01.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./scripts:/usr/share/elasticsearch/scripts/
+      - ./es.jvm.options:/usr/share/elasticsearch/config/jvm.options
     ports:
       - 9200:9200
     networks:
       - esnet
 
   es02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
     container_name: es02
     restart: always
     environment:
@@ -39,7 +40,7 @@ services:
       - cluster.name=elastic-docker
       - bootstrap.memory_lock=true
       - ELASTIC_PASSWORD=123456
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - xpack.license.self_generated.type=trial
       - xpack.security.enabled=true
     ulimits:
@@ -53,11 +54,12 @@ services:
       - plugins02:/usr/share/elasticsearch/plugins
       - ./backup:/usr/share/elasticsearch/backup
       - ./elasticsearch02.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./es.jvm.options:/usr/share/elasticsearch/config/jvm.options
     networks:
       - esnet
 
   es03:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
     container_name: es03
     restart: always
     environment:
@@ -67,7 +69,7 @@ services:
       - cluster.name=elastic-docker
       - bootstrap.memory_lock=true
       - ELASTIC_PASSWORD=123456
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
       - xpack.license.self_generated.type=trial
       - xpack.security.enabled=true
     ulimits:
@@ -81,11 +83,12 @@ services:
       - plugins03:/usr/share/elasticsearch/plugins
       - ./backup:/usr/share/elasticsearch/backup
       - ./elasticsearch03.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./es.jvm.options:/usr/share/elasticsearch/config/jvm.options
     networks:
       - esnet
 
   ls01:
-    image: docker.elastic.co/logstash/logstash:7.4.2
+    image: docker.elastic.co/logstash/logstash:7.6.2
     container_name: ls01
     restart: always
     ulimits:
@@ -104,7 +107,7 @@ services:
 
   kb01:
     container_name: kb01
-    image: docker.elastic.co/kibana/kibana:7.4.2
+    image: docker.elastic.co/kibana/kibana:7.6.2
     restart: always
     volumes:
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml
@@ -116,7 +119,7 @@ services:
       - "es03"
 
   apm-server:
-    image: docker.elastic.co/apm/apm-server:7.4.2
+    image: docker.elastic.co/apm/apm-server:7.6.2
     restart: always
     container_name: apm-server
     ports:
