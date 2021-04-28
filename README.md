@@ -43,13 +43,14 @@ Se RedHat7
 ```
 # yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 # yum install docker-ce python-pip -y
-# pip install --upgrade pip
 # systemctl enable docker.service
 # systemctl start docker.service
 ```
 ## Passo 3 - Instalando o docker-compose
 ```
-# pip install docker-compose
+# curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# chmod +x /usr/local/bin/docker-compose
+# ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 ## Passo 4 - Liberando portas do Elasticsearch, Logstash e Kibana no FirewallD (CentOS/RHCE7)
 ```
